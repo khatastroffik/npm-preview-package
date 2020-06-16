@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "This utility generates an overview of the files and directories, which would be part of an npm package when published: a package content preview.",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "coverage": "jest --coverage",
     "devtest": "jest --watch --verbose",
     "devbuild": "tsc --watch",
-    "node": "node dist/application.js -d",
-    "start": "ts-node --files --project tsconfig.json src/application.ts -d",
+    "node": "node dist/application.js",
+    "start": "ts-node --files --project tsconfig.json src/application.ts",
     "build": "tsc",
     "lint": "eslint -f pretty src"
   },
@@ -43,7 +43,7 @@
   "main": "dist/lib/index",
   "bin": {
     "npm-previewpkg": "dist/application.js"
-  },
+  },  
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.13",
@@ -62,6 +62,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "commander": "^5.1.0",
     "npm-packlist": "^2.1.2",
     "treeify": "^1.1.0"
   }
