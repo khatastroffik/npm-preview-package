@@ -1,0 +1,6 @@
+node_modules
+dist
+coverage
+types
+*.d.ts
+*.[jt]s?(x).map

@@ -2,10 +2,15 @@
   "name": "@khatastroffik/npm-preview-package",
   "version": "1.0.0",
   "description": "This utility generates an overview of the files and directories, which would be part of an npm package when published: a package content preview.",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "devtest": "jest --watch --verbose",
+    "devbuild": "tsc --watch",
+    "node": "node dist/application.js -d",
+    "start": "ts-node --files --project tsconfig.json src/application.ts -d",
+    "build": "tsc",
+    "lint": "eslint -f pretty src"
   },
   "keywords": [
     "npm",
@@ -23,13 +28,22 @@
   },
   "homepage": "https://www.khatastroffik.net",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "engines": {
     "node": ">=13.x",
     "npm": ">=6.x"
   },
   "files": [
-    "src"
+    "dist",
+    "types"
   ],
+  "main": "dist/lib/index",
+  "bin": {
+    "npm-previewpkg": "dist/application.js"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.13",
