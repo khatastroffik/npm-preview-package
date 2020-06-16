@@ -12,8 +12,8 @@ export const explorerSort = function ( pathA: string, pathB: string ): number {
   const fileNameB = path.basename( pathB ).toLowerCase();
   const directoryA = path.dirname( pathA ).toLowerCase();
   const directoryB = path.dirname( pathB ).toLowerCase();
-  const isRootA = ( directoryA.indexOf( '.' ) == 0 );
-  const isRootB = ( directoryB.indexOf( '.' ) == 0 );
+  const isRootA = ( directoryA === '.' );
+  const isRootB = ( directoryB === '.' );
 
   if ( directoryA == directoryB ) return fileNameA.localeCompare( fileNameB );
   if ( isRootA != isRootB ) return isRootA ? 1 : -1;
