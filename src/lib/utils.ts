@@ -5,7 +5,7 @@
  * Copyright (c) 2020, Loïs Bégué
  *
 **/
-import * as path from 'path';
+import path from 'path';
 
 export const explorerSort = function ( pathA: string, pathB: string ): number {
   const fileNameA = path.basename( pathA ).toLowerCase();
@@ -14,12 +14,20 @@ export const explorerSort = function ( pathA: string, pathB: string ): number {
   const directoryB = path.dirname( pathB ).toLowerCase();
   const isRootA = ( directoryA === '.' );
   const isRootB = ( directoryB === '.' );
-  if ( directoryA == directoryB ) return fileNameA.localeCompare( fileNameB );
+  if ( directoryA === directoryB ) return fileNameA.localeCompare( fileNameB );
   if ( isRootA != isRootB ) return isRootA ? 1 : -1;
   if ( directoryA.indexOf( directoryB ) == 0 ) return -1;
   if ( directoryB.indexOf( directoryA ) == 0 ) return 1;
-  return directoryA.localeCompare( directoryB ) || fileNameA.localeCompare( fileNameB );
+  return directoryA.localeCompare( directoryB );
 };
+
+export function normalizePath( inputPath: string ): string {
+  return inputPath.replace( /\\/g, '/' );
+}
+
+export function getFileNameWithoutExtension( filePath?: string ): string {
+  return path.basename( filePath ?? '' ).replace( /(.+)\..+$/mg, '$1' );
+}
 
 // export const optimizedCompressionSort = function ( pathA: string, pathB: string ): number {
 //   const extensionA = path.extname( pathA ).toLowerCase();
@@ -28,7 +36,3 @@ export const explorerSort = function ( pathA: string, pathB: string ): number {
 //   const fileNameB = path.basename( pathB ).toLowerCase();
 //   return extensionA.localeCompare( extensionB ) || fileNameA.localeCompare( fileNameB ) || pathA.localeCompare( pathB );
 // };
-
-export function normalizePath( inputPath: string ): string {
-  return inputPath.replace( /\\/g, '/' );
-}

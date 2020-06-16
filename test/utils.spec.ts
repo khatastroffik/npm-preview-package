@@ -5,7 +5,7 @@
  * Copyright (c) 2020, Loïs Bégué
  *
 **/
-import { explorerSort, normalizePath } from "../src/lib/utils";
+import { explorerSort, normalizePath, getFileNameWithoutExtension } from "../src/lib/utils";
 import 'jest-extended';
 
 describe( 'utility', () => {
@@ -46,7 +46,7 @@ describe( 'utility', () => {
         "dist/z.dummy",
         "types/lib/index.d.js",
         "types/lib/utils.d.js",
-        "types/application.d.js",
+        "types/application.d.js",        
         ".dummy",
         "a.dummy",
         "a.dummy.a",
@@ -60,9 +60,6 @@ describe( 'utility', () => {
       expect( arrayAreEqual( fixture, shuffle( expectation) ) ).toBeFalse();
       expect( arrayAreEqual( result, expectation ) ).toBeTrue();
     } );
-
-
-
   } );
 
   describe( 'normalizePath', () => {
@@ -70,6 +67,25 @@ describe( 'utility', () => {
       expect( normalizePath( '\\' ) ).toEqual( '/' );
       expect( normalizePath( 'C:\\temp\\' ) ).toEqual( 'C:/temp/' );
       expect( normalizePath( '\\\\temp\\\\' ) ).toEqual( '//temp//' );
+    });
+  } );
+  
+  describe( 'getFileNameWithoutExtension', () => {
+    it( 'should remove extension from path', () => {
+      expect( getFileNameWithoutExtension() ).toEqual('');
+      expect( getFileNameWithoutExtension('') ).toEqual('');
+      expect( getFileNameWithoutExtension('a.b') ).toEqual('a');
+      expect( getFileNameWithoutExtension('a/b.c') ).toEqual('b');
+      expect( getFileNameWithoutExtension('a\\b.c') ).toEqual('b');
+      expect( getFileNameWithoutExtension('c:\\a.b') ).toEqual('a');
+      expect( getFileNameWithoutExtension('c:/a.b') ).toEqual('a');
+      expect( getFileNameWithoutExtension('./a/b/c') ).toEqual('c');
+      expect( getFileNameWithoutExtension('./a/b/c.d') ).toEqual('c');
+      expect( getFileNameWithoutExtension('./a/b/c.d.e') ).toEqual('c.d');
+      expect( getFileNameWithoutExtension('./../a.b') ).toEqual('a');
+      expect( getFileNameWithoutExtension('.config') ).toEqual('.config');
+      expect( getFileNameWithoutExtension('/a/b/.config') ).toEqual('.config');
+      expect( getFileNameWithoutExtension('./a/b/.config') ).toEqual('.config');      
     });
     
   });
