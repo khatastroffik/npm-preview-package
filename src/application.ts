@@ -12,9 +12,9 @@ import { getPackageContent, getPackageContentPreview, FilesArray } from "./lib/i
 
 
 console.log( '----- Package Content -----' );
-const packageContent: FilesArray = getPackageContent( "" );
+const packageContent: FilesArray = getPackageContent(  );
 console.log( packageContent.join( '\n' ) );
 
 console.log( '----- Package Preview -----' );
-const packageContentPreview = getPackageContentPreview( "" );
+const packageContentPreview = getPackageContentPreview(  );
 console.log( packageContentPreview );

@@ -21,7 +21,7 @@ export type PreviewOptions = {
   stats?: boolean;
 };
 
-function secureScanPath( scanPath: string ): string {
+function secureScanPath( scanPath?: string ): string {
   return scanPath ?? defaultScanPath;
 }
 
@@ -44,17 +44,17 @@ function getPackageContentObject( files: FilesArray ): ContentObject {
   return tree;
 }
 
-export function getPackageContent( scanPath: string ): FilesArray {
+export function getPackageContent( scanPath?: string ): FilesArray {
   scanPath = secureScanPath( scanPath );
   const content: FilesArray = packlist.sync( { path: scanPath } );
   return content.sort( explorerSort );
 }
 
-export function getPackageContentPreview( scanPath: string, options?: PreviewOptions ): string {
+export function getPackageContentPreview( scanPath?: string, options?: PreviewOptions ): string {
   if ( options ) {
     console.log( 'options available' );
   }
   const packageContent = getPackageContent( scanPath );
   const packageContentObject = getPackageContentObject( packageContent );
-  return normalizeScanPath( scanPath ) + '\n' + treeify.asTree( packageContentObject, true );
+  return normalizeScanPath( secureScanPath(scanPath) ) + '\n' + treeify.asTree( packageContentObject, true );
 }
