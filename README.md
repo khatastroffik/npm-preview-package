@@ -1,6 +1,6 @@
 # npm-preview-package
 
-This CLI application i.e. utility generates an overview of the files and directories, which would be part of an npm package when published:
+The "**npm-previewpkg**" CLI application generates an overview of the files and directories, which would be part of an npm package when published:
 a **package content preview**.
 
 To be more precise, the utility displays the result provided by `npm-packlist` in a user friendly way.
@@ -9,33 +9,39 @@ To be more precise, the utility displays the result provided by `npm-packlist` i
 
 The CLI application implements the following:
 
-- preview as "tree" (default)
-- preview as "list"
-- sorted output ("file explorer" like)
-- TBD: colored output
-- TBD: stats on files size
-- TBD: verbose (preview date, header generated out of the package.json content etc.) ???
-- TBD: template output (%previewdate%, %title%, %filelist% etc.) ???
+- [x] preview as "tree" (default)
+- [x] preview as "list"
+- [ ] sorted output ("file explorer" like)
+- [ ] colored output
+- [ ] stats on files size
+- [ ] verbose (preview date, header generated out of the package.json content etc.) ???
+- [ ] TBD: template output (%previewdate%, %title%, %filelist% etc.) ???
 
 Example output:
 
-```text
+```shell
+> npm-previewpkg
 C:/DEV/npm-preview-package
 ├─ dist
 │  ├─ lib
+│  │  ├─ dependencies.d.ts
 │  │  ├─ index.js
-│  │  └─ utils.js
+│  │  ├─ index.ts
+│  │  ├─ utils.js
+│  │  └─ utils.ts
 │  └─ application.js
 ├─ types
 │  ├─ lib
 │  │  ├─ index.d.ts
 │  │  └─ utils.d.ts
 │  └─ application.d.ts
+├─ CHANGELOG.md
+├─ LICENSE
 ├─ package.json
 └─ README.md
 ```
 
-## Requirements
+## requirements
 
 - **node.js** (circa version >= 8.x)  is required to run the application.
 - **npm** (circa version >= 6.x) is used to install the application.
@@ -94,8 +100,12 @@ Example:
   > npm-previewpkg --list > pre-publish-package-content.txt
   ```
 
-## License and Source Code
+## license and repositories
 
-- **License**: MIT
+- **License**: MIT - Copyright (c) 2020 Loïs Bégué
 
-- **Code**: The source code of this utility can be found in the following repository: TBD
+- **Code Repository**: The source code of this utility can be found in the following repository: [GitHub :: npm-preview-package](https://github.com/khatastroffik/npm-preview-package)
+
+- **Package Repository**: The installable package containing the utility and the library is available at: [NPM :: npm-preview-package](https://www.npmjs.com/package/@khatastroffik/npm-preview-package)
+
+Note: To conform to the *SoC principle* (Separation of Concerns), the Github repository does not contain the build artifacts and the NPM repository does not contain the sources.

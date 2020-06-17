@@ -15,6 +15,7 @@
     "types",
     "doc",
     "coverage",
-    "package-lock.json"
+    "package-lock.json",
+    ".github"
   ]
 }

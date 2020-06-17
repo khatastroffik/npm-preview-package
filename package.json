@@ -24,7 +24,8 @@
 
     "clean": "rimraf ./dist ./types ./coverage",
     "clean:modules": "npx rimraf ./node_modules",
-    "copy:typescripts": "copyfiles -u 2 src/lib/**/* dist/lib"
+    "copy:typescripts": "copyfiles -u 2 src/lib/**/* dist/lib",
+    "changelog": "npx generate-changelog"
   },
   "keywords": [
     "npm",

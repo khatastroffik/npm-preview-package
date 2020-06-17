@@ -34,5 +34,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "types", "doc", "coverage"]
+  "exclude": ["node_modules", "dist", "types", "doc", "coverage", ".github"]
 }
