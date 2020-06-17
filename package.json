@@ -5,12 +5,26 @@
   "scripts": {
     "test": "jest --verbose",
     "coverage": "jest --coverage",
-    "devtest": "jest --watch --verbose",
-    "devbuild": "tsc --watch",
-    "node": "node dist/application.js",
-    "start": "ts-node --files --project tsconfig.json src/application.ts",
+    "lint": "eslint -f pretty src",
     "build": "tsc",
-    "lint": "eslint -f pretty src"
+    
+    "dev:test": "jest --watch --verbose",
+    "dev:build": "tsc --watch",
+
+    "start": "ts-node --files --project tsconfig.json src/application.ts",
+    "start:node": "node dist/application.js",
+    
+    "prepublishOnly": "npm run prod",
+    "prod": "npm run prod:clean && npm run prod:lint && npm run prod:test && npm run prod:build && npm run prod:copy",
+    "prod:build": "npm run build",
+    "prod:test": "jest --silent --all",
+    "prod:lint": "eslint --quiet src",
+    "prod:clean": "npm run clean",
+    "prod:copy": "npm run copy:typescripts",
+
+    "clean": "rimraf ./dist ./types ./coverage",
+    "clean:modules": "npx rimraf ./node_modules",
+    "copy:typescripts": "copyfiles -u 2 src/lib/**/* dist/lib"
   },
   "keywords": [
     "npm",
@@ -41,14 +55,16 @@
     "types"
   ],
   "main": "dist/lib/index",
+  "node": "dist/lib/index.js",
   "bin": {
     "npm-previewpkg": "dist/application.js"
-  },  
+  },
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.13",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
+    "copyfiles": "^2.3.0",
     "eslint": "^7.2.0",
     "eslint-formatter-pretty": "^4.0.0",
     "eslint-plugin-deprecation": "^1.1.0",
@@ -57,6 +73,7 @@
     "jest": "^26.0.1",
     "jest-extended": "^0.11.5",
     "jest-mock-process": "^1.4.0",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.1.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
