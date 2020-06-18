@@ -1,3 +1,9 @@
+#### 1.0.1 (2020-06-18)
+
+##### Bug Fixes
+
+*  add missing dependency "tslib" (1033bbef)
+
 # 1.0.0 (2020-06-17)
 
 ## New Features
