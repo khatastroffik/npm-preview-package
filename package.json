@@ -7,13 +7,10 @@
     "coverage": "jest --coverage",
     "lint": "eslint -f pretty src",
     "build": "tsc",
-    
     "dev:test": "jest --watch --verbose",
     "dev:build": "tsc --watch",
-
     "start": "ts-node --files --project tsconfig.json src/application.ts",
     "start:node": "node dist/application.js",
-    
     "prepublishOnly": "npm run prod",
     "prod": "npm run prod:clean && npm run prod:lint && npm run prod:test && npm run prod:build && npm run prod:copy",
     "prod:build": "npm run build",
@@ -21,7 +18,6 @@
     "prod:lint": "eslint --quiet src",
     "prod:clean": "npm run clean",
     "prod:copy": "npm run copy:typescripts",
-
     "clean": "rimraf ./dist ./types ./coverage",
     "clean:modules": "npx rimraf ./node_modules",
     "copy:typescripts": "copyfiles -u 2 src/lib/**/* dist/lib",
@@ -82,6 +78,7 @@
   "dependencies": {
     "commander": "^5.1.0",
     "npm-packlist": "^2.1.2",
-    "treeify": "^1.1.0"
+    "treeify": "^1.1.0",
+    "tslib": "^2.0.0"
   }
 }
