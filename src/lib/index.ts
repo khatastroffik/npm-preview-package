@@ -8,7 +8,7 @@
 
 import packlist from 'npm-packlist';
 import path from 'path';
-import { Treeifier } from "./treeify";
+import { Treeifier, TreeifierOptions, TreeifierColorMode } from "./treeify";
 import { explorerSort, normalizePath } from "./utils";
 
 const defaultScanPath = './';
@@ -43,11 +43,12 @@ export function getPackageContent( scanPath = defaultScanPath ): FilesArray {
   return content.sort( explorerSort );
 }
 
-export function getPackageContentPreview( scanPath = defaultScanPath /*, options: PreviewOptions = {} */ ): string {
+export function getPackageContentPreview( scanPath = defaultScanPath, colorMode?: TreeifierColorMode ): string {
   const packageContent = getPackageContent( scanPath );
   const packageContentObject = getPackageContentObject( packageContent );
-  const tree = new Treeifier().parse( packageContentObject );
-  return normalizeScanPath( scanPath ) + '\n' + tree.join('\n').trim();
+  const options: TreeifierOptions = { ...{ colorMode } };
+  const tree = new Treeifier().parse( packageContentObject, options );
+  return normalizeScanPath( scanPath ) + '\n' + tree.join( '\n' ).trim();
 }
 
 // BUG: library "npm-packlist" fails when path to scan contains an ending "/" -> need to normalize before scan i.e. remove last "/" char

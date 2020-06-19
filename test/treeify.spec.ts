@@ -5,7 +5,7 @@
  * Copyright (c) 2020, Loïs Bégué
  *
 **/
-import { Treeifier } from "../src/lib/treeify";
+import { Treeifier, TreeifierOptions } from "../src/lib/treeify";
 import 'jest-extended';
 
 describe( 'Treeifier', () => {
@@ -34,7 +34,8 @@ describe( 'Treeifier', () => {
   it( 'should sort using integrated sort function', () => {
     const inputObject = { f: {}, b: { e: { d: null }, c: {} }, a: { g: null }, h: {} };
     const treeifier = new Treeifier();
-    const result = treeifier.parse( inputObject, true);
+    const treeifierOptions: TreeifierOptions = { sort: true };
+    const result = treeifier.parse( inputObject, treeifierOptions );
     const expected = [ "├─ a", "│  └─ g", "├─ b", "│  ├─ c", "│  └─ e", "│     └─ d", "├─ f", "└─ h"];
     expect( result ).toStrictEqual( expected );
   });
@@ -45,7 +46,8 @@ describe( 'Treeifier', () => {
     }
     const inputObject = { f: {}, b: { e: { d: null }, c: {} }, a: { g: null }, h: {} };
     const treeifier = new Treeifier();
-    const result = treeifier.parse( inputObject, customSort );
+    const treeifierOptions: TreeifierOptions = { sort: customSort };
+    const result = treeifier.parse( inputObject, treeifierOptions );
     const expected = [ "├─ a", "│  └─ g", "├─ b", "│  ├─ c", "│  └─ e", "│     └─ d", "├─ f", "└─ h" ];
     expect( result ).toStrictEqual( expected );
   } );  

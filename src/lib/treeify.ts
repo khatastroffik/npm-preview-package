@@ -7,12 +7,22 @@
 **/
 export type SortFunction = ( objPropA: [ string, unknown ], objPropB: [ string, unknown ] ) => number;
 
-export class Treeifier {
-  private output: Array<string>;
+export enum TreeifierColorMode {
+  default = 1,
+  dark = 2,
+  light = 3
+}
 
-  constructor() {
-    this.output = [];
-  }
+export type TreeifierOptions = {
+  colorMode?: TreeifierColorMode | undefined;
+  sort?: boolean | SortFunction | undefined;
+};
+
+const DefaultTreeifierOptions = { colorMode: TreeifierColorMode.default, sort: false };
+
+export class Treeifier {
+  private output: Array<string> = [];
+  private options: TreeifierOptions = DefaultTreeifierOptions;
 
   private joint( index: number, maxIndex: number ): string {
     return ( index == maxIndex ) ? '└─ ' : '├─ ';
@@ -27,9 +37,10 @@ export class Treeifier {
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  private parseInternal( inObject: object, depth: number, prefix: string, sortFunction: boolean | SortFunction ): void {
+  private parseInternal( inObject: object, depth: number, prefix: string): void {
     const maxIndex = inObject && Object.entries( inObject ).length - 1;
     let entries = Object.entries( inObject );
+    const sortFunction = this.options.sort;
     if ( sortFunction && maxIndex > 0 ) {
       if ( typeof sortFunction === 'function' )
         ( entries = entries.sort( sortFunction ) );
@@ -42,15 +53,17 @@ export class Treeifier {
         return;
       }
       this.pushToOutput( prefix, index, maxIndex, key );
-      this.parseInternal( value, depth + 1, this.updatePrefix( prefix, maxIndex - index ), sortFunction );
+      this.parseInternal( value, depth + 1, this.updatePrefix( prefix, maxIndex - index ));
     } );
   }
 
+
   // eslint-disable-next-line @typescript-eslint/ban-types
-  parse( objectToParse?: object | null, sort?: boolean | SortFunction ): Array<string> {
+  parse( objectToParse?: object | null, options?: TreeifierOptions ): Array<string> {
     this.output = [];
-    if ( !sort ) sort = false;
-    if ( objectToParse ) this.parseInternal( objectToParse, 0, '', sort );
+    // initialize with default values and adapt with provided values
+    this.options = { ...DefaultTreeifierOptions, ...options };
+    if ( objectToParse ) this.parseInternal( objectToParse, 0, '' );
     return this.output;
   }
 }
