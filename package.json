@@ -78,7 +78,6 @@
   "dependencies": {
     "commander": "^5.1.0",
     "npm-packlist": "^2.1.2",
-    "treeify": "^1.1.0",
     "tslib": "^2.0.0"
   }
 }
