@@ -47,9 +47,10 @@ export class Treeifier {
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  parse( objectToParse: object ): Array<string> {
+  parse( objectToParse?: object | null, sort?: boolean | SortFunction ): Array<string> {
     this.output = [];
-    this.parseInternal( objectToParse, 0, '', false );
+    if ( !sort ) sort = false;
+    if ( objectToParse ) this.parseInternal( objectToParse, 0, '', sort );
     return this.output;
   }
 }
