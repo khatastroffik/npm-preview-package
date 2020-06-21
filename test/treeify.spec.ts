@@ -6,6 +6,7 @@
  *
 **/
 import { Treeifier, TreeifierOptions, TreeifierColorMode } from "../src/lib/treeify";
+import chalk from "chalk";
 import 'jest-extended';
 
 describe( 'Treeifier', () => {
@@ -55,7 +56,7 @@ describe( 'Treeifier', () => {
   } );
 
   describe( 'Coloring functionality', () => {
-    it( 'should render using dark color', () => {
+    it( 'should render using dark colors', () => {
       const inputObject = { a: {} };
       const treeifier = new Treeifier();
       const treeifierOptions: TreeifierOptions = { colorMode: TreeifierColorMode.dark };
@@ -64,14 +65,25 @@ describe( 'Treeifier', () => {
       expect( result ).not.toStrictEqual( expected );
       expect( true ).toBeTrue();
     });
-    it( 'should render using light color', () => {
+    it( 'should render using light colors', () => {
       const inputObject = { a: {}};
       const treeifier = new Treeifier();
       const treeifierOptions: TreeifierOptions = { colorMode: TreeifierColorMode.bright };
       const result = treeifier.parse( inputObject, treeifierOptions );
       const expectedTree = "[31m└─ ";
       const expectedText = "[31ma";
+      expect( result.toString() ).not.toContain( expectedTree );
+      expect( result.toString() ).not.toContain( expectedText );
+    } );
 
+    it( 'should render using custom colors', () => {
+      const inputObject = { a: {} };
+      const treeifier = new Treeifier();
+      const treeifierOptions: TreeifierOptions = { colorMode: TreeifierColorMode.custom };
+      treeifier.setCustomColors( chalk.keyword( 'ivory' ), chalk.keyword('sandybrown') );
+      const result = treeifier.parse( inputObject, treeifierOptions );
+      const expectedTree = "[31m└─ ";
+      const expectedText = "[31ma";
       expect( result.toString() ).not.toContain( expectedTree );
       expect( result.toString() ).not.toContain( expectedText );
 
