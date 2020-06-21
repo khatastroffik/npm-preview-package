@@ -1,6 +1,6 @@
 {
   "name": "@khatastroffik/npm-preview-package",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "This utility generates an overview of the files and directories, which would be part of an npm package when published: a package content preview.",
   "scripts": {
     "test": "jest --verbose",
