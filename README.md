@@ -18,6 +18,7 @@ The CLI application implements the following:
 - [ ] TBD: template output (%previewdate%, %title%, %filelist% etc.) ???
 
 Example output (showing usage of custom colors):
+
 ![example output](doc/screenshot-output.png)
 
 ## requirements
