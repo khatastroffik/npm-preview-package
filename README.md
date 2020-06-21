@@ -17,29 +17,8 @@ The CLI application implements the following:
 - [ ] verbose (preview date, header generated out of the package.json content etc.) ???
 - [ ] TBD: template output (%previewdate%, %title%, %filelist% etc.) ???
 
-Example output:
-
-```shell
-> npm-previewpkg
-C:/DEV/npm-preview-package
-├─ dist
-│  ├─ lib
-│  │  ├─ dependencies.d.ts
-│  │  ├─ index.js
-│  │  ├─ index.ts
-│  │  ├─ utils.js
-│  │  └─ utils.ts
-│  └─ application.js
-├─ types
-│  ├─ lib
-│  │  ├─ index.d.ts
-│  │  └─ utils.d.ts
-│  └─ application.d.ts
-├─ CHANGELOG.md
-├─ LICENSE
-├─ package.json
-└─ README.md
-```
+Example output (showing usage of custom colors):
+![example output](doc/screenshot-output.png)
 
 ## requirements
 
@@ -77,16 +56,62 @@ You may call the application according to the following schema:
   > npx npm-previewpkg [options] [path-to-the-package]
   ```
 
-## options and parameter
+### options and parameter
 
 | argument | type | description |
 |---|---|---|
 `-l`, `--list`| option | return a flat list instead of a treeview
 `-v`, `--version`| option | output the version of this application
 `-h`, `--help` | option | display the help message describing the CLI usage
-`[path-to-the-package]` | parameter | the path for which a content preview should be displayed
+`-d, --dark-colors` | option | use dark colors (preset) for displaying the treeview
+`-b, --bright-colors` | option | use bright colors (preset) for displaying the treeview
+`-c, --custom-colors` | option | use custom colors for displaying the treeview
+`-tc, --text-color <color>` | option | define the custom color of the text. See "extended help"
+`-bc, --branch-color <color>` | option | define the custom color of the tree branches. See "extended help"
+`-eh, --extended-help` | option | display extended help on "custom colors" and "Usage Examples"
+`[path-to-the-package]` | parameter | the path for which a content preview should be displayed.
 
-All arguments are optional i.e. may be omitted.
+All arguments are optional i.e. may be omitted. If the path parameter is not specified, then the current directory will be scanned instead i.e. the path default to `./`.
+
+### Custom colors
+
+All custom colors must match a standard CSS color name as defined by the W3C: [W3C color names](https://www.w3.org/wiki/CSS/Properties/color/keywords)
+
+The custom colors may be (pre-) defined as `ENV` (environment) variables like so (e.g.):
+
+```shell
+> set TreeifierTextColor=orange
+> set TreeifierBranchColor=red
+```
+
+Hence, the allowed environment variables are:
+
+- `TreeifierTextColor` for a custom text color
+- `TreeifierBranchColor` for a custom color of the tree branches
+
+In case any ENV variable is set prior to calling the application, then the option `--custom-colors` may be used without requiring that the text and/or branch colors are explicitly set in the call.
+
+If the custom colors are not explicitly set in the call, then they default to their corresponding ENV values (if defined) or to the default color "*lightgray*".
+
+### Example calls:
+
+- scan the current directory i.e. `./` (default)
+`$ npm-previewpkg`
+
+- scan a specific directory (absolute or relative paths are permitted)
+`$ npm-previewpkg ../some-other-app-directory`
+
+- scan the current directory and display the result as an ordered list
+`$ npm-previewpkg --list`
+
+- display the preview using dark color mode
+`$ npm-previewpkg --dark`
+
+- display the preview using custom colors
+`$ npm-previewpkg --text-color orange --branch-color red`
+
+- display the preview using custom colors as defined per ENV variables (see above)
+`$ npm-previewpkg --custom-colors`
 
 ## CI/CD
 
