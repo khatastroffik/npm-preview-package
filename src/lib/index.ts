@@ -10,6 +10,7 @@ import packlist from 'npm-packlist';
 import path from 'path';
 import { Treeifier, TreeifierOptions, TreeifierColorMode } from "./treeify";
 import { explorerSort, normalizePath } from "./utils";
+import chalk from 'chalk';
 
 const defaultScanPath = './';
 type ContentObject = Record<string, unknown>;
@@ -43,11 +44,13 @@ export function getPackageContent( scanPath = defaultScanPath ): FilesArray {
   return content.sort( explorerSort );
 }
 
-export function getPackageContentPreview( scanPath = defaultScanPath, colorMode?: TreeifierColorMode ): string {
+export function getPackageContentPreview( scanPath = defaultScanPath, colorMode?: TreeifierColorMode, customTextColor?: string, customBranchColor?: string ): string {
   const packageContent = getPackageContent( scanPath );
   const packageContentObject = getPackageContentObject( packageContent );
   const options: TreeifierOptions = { ...{ colorMode } };
-  const tree = new Treeifier().parse( packageContentObject, options );
+  const treeifier = new Treeifier();
+  treeifier.setCustomColors( chalk.keyword(customTextColor || 'lightgray'), chalk.keyword(customBranchColor || 'lightgray' ));
+  const tree = treeifier.parse( packageContentObject, options );
   return normalizeScanPath( scanPath ) + '\n' + tree.join( '\n' ).trim();
 }
 

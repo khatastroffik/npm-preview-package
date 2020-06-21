@@ -11,8 +11,8 @@ The CLI application implements the following:
 
 - [x] preview as "tree" (default)
 - [x] preview as "list"
-- [ ] sorted output ("file explorer" like)
-- [ ] colored output
+- [x] sorted output ("file explorer" like)
+- [x] colored output
 - [ ] stats on files size
 - [ ] verbose (preview date, header generated out of the package.json content etc.) ???
 - [ ] TBD: template output (%previewdate%, %title%, %filelist% etc.) ???

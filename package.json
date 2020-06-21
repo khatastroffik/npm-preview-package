@@ -76,6 +76,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "commander": "^5.1.0",
     "npm-packlist": "^2.1.2",
     "tslib": "^2.0.0"
