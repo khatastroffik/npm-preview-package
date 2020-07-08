@@ -43,6 +43,13 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "repository": {
+    "url": "https://github.com/khatastroffik/npm-preview-package.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/khatastroffik/npm-preview-package/issues"
+  },  
   "engines": {
     "node": ">=13.x",
     "npm": ">=6.x"
